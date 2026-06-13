@@ -1,6 +1,12 @@
 """
 The relational database layout for Gustus.
 Short docstrings describe each model's function in the domain.
+
+Class name meanings for comprehension:
+    EPI -> External Place Identity
+    RExperience -> Restaurant Experience
+    URProfile -> User Restaurant Profile
+
 """
 
 from django.db import models
@@ -10,9 +16,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Restaurant(models.Model):
     """
     A unique restaurant, entry local to the database.
-    Stores raw data, identification handled through ExternalPlaceIdentity.
-    is_active functions as a soft delete, so that RestaurantExperiences
-    after for ex. restaurant closure stay valid for historical purposes.
+    Stores raw data, identification handled through EPI.
+    is_active functions as a soft delete, so that RExperiences
+    stay valid for historical purposes after for ex. restaurant closure. 
     """
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
@@ -22,16 +28,16 @@ class Restaurant(models.Model):
     class Meta:
         constraints=[
                 models.UniqueConstraint(
-                   fields=["name", "address", "city"],
-                   condition=models.Q(is_active=True),
-                   name="unique_restaurant"
-                   )
+                    fields=["name", "address", "city"],
+                    condition=models.Q(is_active=True),
+                    name="unique_restaurant"
+                    )
         ]
 
     def __str__(self):
         return f"{self.name}, {self.address}, {self.city}, {self.is_active}"
 
-class ExternalPlaceIdentity(models.Model):
+class EPI(models.Model):
     """
     Layer for preventing duplicates.
     Google's place_id from Google Places is planned for integration.
@@ -42,23 +48,25 @@ class ExternalPlaceIdentity(models.Model):
     Identities with is_current=False stop being unique.
     """
     id = models.BigAutoField(primary_key=True)
-    external_place_id = models.CharField(max_length=1024)
+    external_id = models.CharField(max_length=1024)
     provider = models.CharField(max_length=20)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.PROTECT)
     is_current = models.BooleanField(default=True)
     class Meta:
+        verbose_name = "External place identity"
+        verbose_name_plural = "External place identities"
         constraints=[
                 models.UniqueConstraint(
-                    fields=["external_place_id", "provider"],
+                    fields=["external_id", "provider"],
                     condition=models.Q(is_current=True),
-                    name="unique_external_place_identity"
+                    name="unique_epi"
                     )
         ]
 
     def __str__(self):
-        return f"{self.external_place_id}, {self.provider}, {self.restaurant}, {self.is_current}"
+        return f"{self.external_id}, {self.provider}, {self.restaurant}, {self.is_current}"
 
-class RestaurantExperience(models.Model):
+class RExperience(models.Model):
     """
     A unique restaurant experience.
     Separates metadata from rating values.
@@ -69,6 +77,10 @@ class RestaurantExperience(models.Model):
     date = models.DateField()
     time = models.TimeField()
 
+    class Meta:
+        verbose_name = "Restaurant experience"
+        verbose_name_plural = "Restaurant experiences"
+
     def __str__(self):
         return f"{self.user}, {self.restaurant}, {self.date}, {self.time}"
 
@@ -77,7 +89,7 @@ class Rating(models.Model):
     A 5 category rating linked to each RestaurantExperience (1 to 1 relation)
     """
     id = models.BigAutoField(primary_key=True)
-    experience = models.OneToOneField(RestaurantExperience, on_delete=models.PROTECT)
+    experience = models.OneToOneField(RExperience, on_delete=models.PROTECT)
     taste = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     quality = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     wait = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
@@ -87,7 +99,7 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.experience}, {self.taste}, {self.quality}, {self.wait}, {self.price}, {self.would_eat_again}"
 
-class UserRestaurantProfile(models.Model):
+class URProfile(models.Model):
     """
     A personalizable restaurant profile for each user.
     Constraint restricts each user to one profile for each restaurant.
@@ -100,10 +112,12 @@ class UserRestaurantProfile(models.Model):
     alias = models.CharField(max_length=50, blank=True)
     note = models.CharField(max_length=100, blank=True)
     class Meta:
+        verbose_name = "User restaurant profile"
+        verbose_name_plural = "User restaurant profiles"
         constraints=[
                 models.UniqueConstraint(
                     fields=["user", "restaurant"],
-                    name="unique_user_restaurant_profile")
+                    name="unique_urprofile")
         ]
 
     def __str__(self):
