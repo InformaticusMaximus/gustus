@@ -89,6 +89,7 @@ class Rating(models.Model):
     A 5 category rating linked to each RestaurantExperience (1 to 1 relation)
     """
     id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     experience = models.OneToOneField(RExperience, on_delete=models.PROTECT)
     taste = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     quality = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
