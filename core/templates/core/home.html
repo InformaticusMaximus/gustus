@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h2>The "Spotify-for-food at your disposal</h2>
+
+    <p>
+        Gustus allows you to document your eating-out history, rate food
+        and get intelligent food recommendations so that you don't have to
+        be dissapointed in your food ever again.
+    </p>
+
+    {% if user.is_authenticated %}
+        <p>You are logged in as <strong>{{ user.username }}</strong>.</p>
+        <a class="button" href="{% url 'urprofiles' %}">Go to your restaurants</a>
+    {% else %}
+        <a class="button" href="{% url 'login' %}">Login</a>
+    {% endif %}
+</section>
+{% endblock %}
