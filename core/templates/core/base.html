@@ -16,6 +16,7 @@
             <a href="{% url 'urprofiles' %}">Your restaurants</a>
             <a href="{% url 'urexperiences' %}">Experiences</a>
             <a href="{% url 'ratings' %}">Ratings</a>
+            <a href="{% url 'top3' %}">Top 3</a>
 
             {% if user.is_authenticated %}
                 <span class="user-label">{{ user.username }}</span>
@@ -30,6 +31,14 @@
     </header>
 
     <main class="container">
+         {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}       
+
         {% block content %}
         {% endblock %}
     </main>

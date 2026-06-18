@@ -15,6 +15,10 @@
         <a class="button" href="{% url 'urprofiles' %}">Go to your restaurants</a>
     {% else %}
         <a class="button" href="{% url 'login' %}">Login</a>
+        
+        <p class="small-note">No account yet?</p>
+
+        <a class="button secondary-button" href="{% url 'register' %}">Register</a>
     {% endif %}
 </section>
 {% endblock %}

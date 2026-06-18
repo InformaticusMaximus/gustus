@@ -3,12 +3,22 @@
 {% block content %}
 <h2>Restaurants</h2>
 
+<a class="button" href="{% url 'search_restaurants' %}">
+    Search restaurants
+</a>
+
 <div class="grid">
     {% for restaurant in restaurants %}
         <article class="card">
             <h3>{{ restaurant.name }}</h3>
             <p>{{ restaurant.address }}</p>
             <p>{{ restaurant.city }}</p>
+
+            {% if user.is_authenticated %}
+                <a class="button" href="{% url 'add_urexperience' %}">
+                    Add experience
+                </a>
+            {% endif %}
         </article>
     {% empty %}
         <p>No restaurants found.</p>
