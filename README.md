@@ -8,6 +8,70 @@ The goal of Gustus is to create a small "Spotify for food": an app that stores r
 
 For now, this project is being built as an MVP for my programming course final. The main focus is on Django, relational database design, CRUD, REST API, user accounts, and a simple recommendation/statistics layer.
 
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/InformaticusMaximus/gustus.git
+cd gustus
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+On Windows use:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Apply database migrations:
+
+```bash
+python manage.py migrate
+```
+
+Create an admin user:
+
+```bash
+python manage.py createsuperuser
+```
+
+Run the development server:
+
+```bash
+python manage.py runserver
+```
+
+Open the application in the browser:
+
+```text
+http://127.0.0.1:8000/
+```
+
+Admin panel:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+API root:
+
+```text
+http://127.0.0.1:8000/api/
+```
+
 ## MVP Scope
 
 - Django web application
