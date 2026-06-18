@@ -72,6 +72,8 @@ API root:
 http://127.0.0.1:8000/api/
 ```
 
+**At this point in development, only admin can manage restaurants**
+
 ## MVP Scope
 
 - Django web application
