@@ -12,7 +12,7 @@
             <p><strong>Date:</strong> {{ experience.date }}</p>
             <p><strong>Time:</strong> {{ experience.time }}</p>
 
-            <form method="post" action="{% url 'delete_uexperience' experience.id %}">
+            <form method="post" action="{% url 'delete_urexperience' experience.id %}">
                 {% csrf_token %}
                 <button type="submit">Delete experience</button>
             </form>
