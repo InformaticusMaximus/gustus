@@ -3,6 +3,8 @@
 {% block content %}
 <h2>Your ratings</h2>
 
+<a class="button" href="{% url 'add_rating' %}">Add rating</a>
+
 <div class="grid">
     {% for rating in ratings %}
         <article class="card">
@@ -12,7 +14,12 @@
             <p><strong>Wait:</strong> {{ rating.wait }}</p>
             <p><strong>Price:</strong> {{ rating.price }}</p>
             <p><strong>Would eat again:</strong> {{ rating.would_eat_again }}</p>
-        </article>
+
+            <form method="post" action="{% url 'delete_rating' rating.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete rating</button>
+            </form>
+            </article>
     {% empty %}
         <p>You do not have any ratings yet.</p>
     {% endfor %}

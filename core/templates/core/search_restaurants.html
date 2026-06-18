@@ -1,0 +1,73 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Search restaurants</h2>
+
+<form method="get" class="filter-form">
+    <label>
+        Name:
+        <input type="text" name="q" value="{{ query }}">
+    </label>
+
+    <label>
+        City:
+        <input type="text" name="city" value="{{ city }}">
+    </label>
+
+    <label>
+        Sort:
+        <select name="sort">
+            <option value="name" {% if sort == "name" %}selected{% endif %}>
+                Name
+            </option>
+            <option value="city" {% if sort == "city" %}selected{% endif %}>
+                City
+            </option>
+        </select>
+    </label>
+
+    <button type="submit">Search</button>
+
+    <a class="button secondary-button" href="{% url 'search_restaurants' %}">
+        Clear
+    </a>
+</form>
+
+<div class="grid">
+    {% for restaurant in page_obj %}
+        <article class="card">
+            <h3>{{ restaurant.name }}</h3>
+            <p>{{ restaurant.address }}</p>
+            <p>{{ restaurant.city }}</p>
+        </article>
+    {% empty %}
+        <p>No restaurants found.</p>
+    {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a class="button secondary-button"
+               href="?q={{ query }}&city={{ city }}&sort={{ sort }}&page={{ page_obj.previous_page_number }}">
+                Previous
+            </a>
+        {% endif %}
+
+        <span>
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="button secondary-button"
+               href="?q={{ query }}&city={{ city }}&sort={{ sort }}&page={{ page_obj.next_page_number }}">
+                Next
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<p>
+    <a href="{% url 'restaurants' %}">Back to restaurants</a>
+</p>
+{% endblock %}

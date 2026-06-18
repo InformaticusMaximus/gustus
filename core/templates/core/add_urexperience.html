@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<section class="form-card">
+    <h2>Add restaurant experience</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Save experience</button>
+    </form>
+</section>
+{% endblock %}

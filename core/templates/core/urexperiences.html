@@ -3,12 +3,20 @@
 {% block content %}
 <h2>Your restaurant experiences</h2>
 
+<a class="button" href="{% url 'add_urexperience' %}">Add experience</a>
+
 <div class="grid">
     {% for experience in experiences %}
         <article class="card">
             <h3>{{ experience.restaurant.name }}</h3>
             <p><strong>Date:</strong> {{ experience.date }}</p>
             <p><strong>Time:</strong> {{ experience.time }}</p>
+
+            <form method="post" action="{% url 'delete_uexperience' experience.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete experience</button>
+            </form>
+
         </article>
     {% empty %}
         <p>You do not have any restaurant experiences yet.</p>

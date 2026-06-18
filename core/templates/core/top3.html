@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Your top restaurants</h2>
+
+{% if error_message %}
+    <p class="message error">{{ error_message }}</p>
+{% else %}
+    <div class="grid">
+        {% for recommendation in recommendations %}
+            <article class="card">
+                <h3>{{ recommendation.restaurant.name }}</h3>
+
+                <p>
+                    <strong>Score:</strong>
+                    {{ recommendation.score }}
+                </p>
+
+                <p>
+                    <strong>Ratings counted:</strong>
+                    {{ recommendation.ratings_count }}
+                </p>
+
+                <p>
+                    {{ recommendation.restaurant.address }},
+                    {{ recommendation.restaurant.city }}
+                </p>
+            </article>
+        {% empty %}
+            <p>No recommendations found.</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
