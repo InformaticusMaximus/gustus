@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Your restaurant profiles</h2>
+
+<div class="grid">
+    {% for profile in profiles %}
+        <article class="card">
+            {% if profile.alias %}
+                <h3>{{ profile.alias }}</h3>
+                <p class="muted">{{ profile.restaurant.name }}</p>
+            {% else %}
+                <h3>{{ profile.restaurant.name }}</h3>
+            {% endif %}
+
+            <p>{{ profile.restaurant.address }}, {{ profile.restaurant.city }}</p>
+            <p><strong>Note:</strong> {{ profile.note|default:"-" }}</p>
+        </article>
+    {% empty %}
+        <p>You do not have any restaurant profiles yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

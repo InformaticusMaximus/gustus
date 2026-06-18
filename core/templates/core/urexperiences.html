@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Your restaurant experiences</h2>
+
+<div class="grid">
+    {% for experience in experiences %}
+        <article class="card">
+            <h3>{{ experience.restaurant.name }}</h3>
+            <p><strong>Date:</strong> {{ experience.date }}</p>
+            <p><strong>Time:</strong> {{ experience.time }}</p>
+        </article>
+    {% empty %}
+        <p>You do not have any restaurant experiences yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

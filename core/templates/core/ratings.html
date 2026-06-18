@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>Your ratings</h2>
+
+<div class="grid">
+    {% for rating in ratings %}
+        <article class="card">
+            <h3>{{ rating.experience.restaurant.name }}</h3>
+            <p><strong>Taste:</strong> {{ rating.taste }}</p>
+            <p><strong>Quality:</strong> {{ rating.quality }}</p>
+            <p><strong>Wait:</strong> {{ rating.wait }}</p>
+            <p><strong>Price:</strong> {{ rating.price }}</p>
+            <p><strong>Would eat again:</strong> {{ rating.would_eat_again }}</p>
+        </article>
+    {% empty %}
+        <p>You do not have any ratings yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
