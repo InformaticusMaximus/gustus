@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Restaurant, URProfile, RExperience, Rating
+from core.models import Restaurant, URProfile, RExperience, Rating
 from .serializers import RestaurantSerializer, URProfileSerializer, RExperienceSerializer, RatingSerializer
 from rest_framework.permissions import IsAuthenticated
 

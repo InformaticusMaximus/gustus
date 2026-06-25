@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Restaurant, URProfile, RExperience, Rating
+from core.models import Restaurant, URProfile, RExperience, Rating
 from rest_framework.validators import UniqueTogetherValidator
 
 class RestaurantSerializer(serializers.ModelSerializer):

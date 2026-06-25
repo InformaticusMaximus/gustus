@@ -21,11 +21,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # REST API
-    path("api/", include("core.urls")),
+    path("api/", include("core.API.urls")),
 
     # DRF Browsable API Login
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 
     # Frontend HTML
-    path("", include("core.webpage.web_urls"))
+    path("", include("core.web_urls"))
     ]
