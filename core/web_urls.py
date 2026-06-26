@@ -19,6 +19,7 @@ urlpatterns = [
     # POST views
     path("urexperiences/add/", html_views.add_urexperience_view, name="add_urexperience"),
     path("ratings/add/", html_views.add_rating_view, name="add_rating"),
+    path("urprofiles/add/", html_views.add_urprofile_view, name="add_urprofile"),
     # DELETE views
     path("ratings/<int:rating_id>/delete/", html_views.delete_rating_view, name="delete_rating"),
     path("urexperiences/<int:experience_id>/delete/", html_views.delete_urexperience_view, name="delete_urexperience"),

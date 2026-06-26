@@ -5,7 +5,7 @@ Views for the HTML site.
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from core.models import Restaurant, URProfile, RExperience, Rating
-from core.forms import URExperienceForm, RatingForm
+from core.forms import URExperienceForm, RatingForm, URProfileForm
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
 from django.contrib.auth import login
@@ -39,6 +39,41 @@ def urprofiles_view(request):
     )
 
     return render(request, "core/urprofiles.html", {"profiles":profiles})
+
+@login_required
+def add_urprofile_view(request):
+
+    if request.method == "POST":
+        
+        form = URProfileForm(request.POST)
+
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+
+            return redirect("urprofiles")
+    else:
+        form = URProfileForm()
+
+                
+        used_restaurants = URProfile.objects.filter(
+                user=request.user
+                ).values_list("restaurant_id", flat=True)
+
+        available_restaurants = Restaurant.objects.exclude(
+                id__in = used_restaurants
+                )
+
+        form.fields["restaurant"].queryset = available_restaurants
+
+
+    return render(
+            request,
+            "core/add_urprofile.html",
+            {"form":form}
+            )
+
 
 # URExperience
 @login_required
