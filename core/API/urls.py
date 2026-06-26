@@ -1,3 +1,8 @@
+"""
+URL configuration for Gustus's API.
+
+Built on Django's DefaultRouter entirely.
+"""
 
 from rest_framework.routers import DefaultRouter
 from .views import RestaurantViewSet, URProfileViewSet, RExperienceViewSet, RatingViewSet

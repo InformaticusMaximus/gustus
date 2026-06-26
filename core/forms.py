@@ -1,3 +1,7 @@
+"""
+POST forms for HTML site.
+"""
+
 from django import forms
 
 from core.models import RExperience, Rating

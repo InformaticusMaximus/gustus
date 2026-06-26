@@ -1,5 +1,9 @@
+"""
+Admin site.
+"""
+
 from django.contrib import admin
-from .models import (Restaurant, EPI, RExperience, Rating, URProfile)
+from .models import Restaurant, EPI, RExperience, Rating, URProfile
 
 @admin.register(Restaurant, EPI, RExperience, Rating)
 class SuperAdmin(admin.ModelAdmin):
