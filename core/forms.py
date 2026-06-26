@@ -4,7 +4,7 @@ POST forms for HTML site.
 
 from django import forms
 
-from core.models import RExperience, Rating
+from core.models import RExperience, Rating, URProfile
 
 
 class URExperienceForm(forms.ModelForm):
@@ -27,3 +27,13 @@ class RatingForm(forms.ModelForm):
             "price",
             "would_eat_again",
         ]
+
+class URProfileForm(forms.ModelForm):
+    class Meta:
+        model = URProfile
+        fields = [
+            "restaurant", 
+            "alias",
+            "note"
+        ]
+
