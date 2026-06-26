@@ -1,3 +1,13 @@
+"""
+Viewsets for Gustus's API.
+
+Only active restaurants are listed from GET requests.
+
+Only a user's entries are listed for user-specific entries.
+
+IsAuthenticated ensures only authenticated users can send requests through API.
+"""
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from core.models import Restaurant, URProfile, RExperience, Rating
@@ -14,10 +24,6 @@ class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return Restaurant.objects.filter(is_active=True)
-
-    def perform_destroy(self, instance):
-        instance.is_active = False
-        instance.save()
 
 class URProfileViewSet(viewsets.ModelViewSet):
     """

@@ -1,3 +1,7 @@
+"""
+URL configuration for the HTML site.
+"""
+
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 

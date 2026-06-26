@@ -1,3 +1,8 @@
+"""
+Serializer classes for Gustus's API.
+
+HiddenField is used to disallow users from submitting entries related to other users' accounts.
+"""
 
 from rest_framework import serializers
 from core.models import Restaurant, URProfile, RExperience, Rating
